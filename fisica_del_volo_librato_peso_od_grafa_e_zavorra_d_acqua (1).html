@@ -1,0 +1,1607 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fisica del Volo Librato: Peso, Odògrafa e Zavorra d’Acqua — Costruzioni Aeronautiche</title>
+<style>
+  :root {
+    --bg-ivory: #FAF7F0;
+    --bg-surface: #FFFFFF;
+    --bg-subtle: #F2ECE1;
+    --ink-primary: #1C242B;
+    --ink-secondary: #3E4A56;
+    --ink-muted: #5C6B78;
+    --accent: #1B4965;
+    --accent-light: #E6EFF4;
+    --accent-hover: #123348;
+    --border-color: #D8CFC0;
+    --border-strong: #B4A896;
+    --success: #1E6341;
+    --success-bg: #E6F4EC;
+    --error: #9B2226;
+    --error-bg: #FCEAEA;
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --shadow-sm: 0 2px 8px rgba(28, 36, 43, 0.06);
+    --shadow-lg: 0 18px 44px rgba(28, 36, 43, 0.22);
+    --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-serif: Georgia, "Times New Roman", Times, serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--bg-ivory);
+    color: var(--ink-primary);
+    font-family: var(--font-sans);
+    line-height: 1.65;
+    font-size: 16px;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    background: var(--accent);
+    color: #fff;
+    padding: 10px 16px;
+    font-weight: 700;
+    z-index: 200;
+  }
+  .skip-link:focus {
+    left: 12px;
+    top: 12px;
+    border-radius: var(--radius-sm);
+  }
+
+  .container {
+    max-width: 1060px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* Intestazione Editoriale */
+  .site-header {
+    background-color: var(--bg-surface);
+    border-bottom: 2px solid var(--border-color);
+    padding: 24px 0 30px;
+  }
+
+  .school-meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px 16px;
+    font-size: 0.82rem;
+    color: var(--accent);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(1.7rem, 3.3vw, 2.4rem);
+    line-height: 1.18;
+    margin: 0 0 12px;
+    color: var(--ink-primary);
+  }
+
+  .subtitle {
+    font-size: 1.04rem;
+    color: var(--ink-secondary);
+    max-width: 820px;
+    margin: 0 0 16px;
+  }
+
+  .theme-question {
+    background-color: var(--bg-subtle);
+    border-left: 4px solid var(--accent);
+    padding: 14px 18px;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-size: 0.94rem;
+    color: var(--ink-primary);
+  }
+
+  .theme-question-label {
+    display: block;
+    font-size: 0.74rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  /* Main */
+  main {
+    padding: 32px 0 64px;
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+  }
+
+  .section-intro {
+    margin-bottom: 14px;
+  }
+
+  .section-intro h2 {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    margin: 0 0 4px;
+    color: var(--ink-primary);
+  }
+
+  .section-intro p {
+    margin: 0;
+    color: var(--ink-secondary);
+    font-size: 0.96rem;
+  }
+
+  /* Griglia delle 5 Sezioni Didattiche */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  @media (min-width: 720px) {
+    .cards-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .cards-grid .topic-card:last-child {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .topic-card {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 22px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.16s ease, border-color 0.16s ease;
+    cursor: pointer;
+  }
+
+  .topic-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+  }
+
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .card-num {
+    background-color: var(--accent-light);
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 0.78rem;
+    padding: 3px 10px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .card-ref {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    color: var(--ink-muted);
+  }
+
+  .topic-card h3 {
+    font-family: var(--font-serif);
+    font-size: 1.22rem;
+    margin: 0 0 10px;
+    color: var(--ink-primary);
+  }
+
+  .card-summary {
+    font-size: 0.94rem;
+    color: var(--ink-secondary);
+    margin: 0 0 14px;
+  }
+
+  .card-formula-preview {
+    background-color: var(--bg-subtle);
+    border-left: 3px solid var(--accent);
+    padding: 8px 12px;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    margin-bottom: 16px;
+    font-size: 0.96rem;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .card-formula-preview math,
+  .formula-block math,
+  .worked-example math,
+  .theme-question math {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  .btn-open {
+    align-self: flex-start;
+    background-color: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 9px 15px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .btn-open:hover {
+    background-color: var(--accent-hover);
+  }
+
+  /* Simulatore Interattivo */
+  .panel-box {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .sim-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 22px;
+    margin-top: 14px;
+  }
+
+  @media (min-width: 820px) {
+    .sim-layout {
+      grid-template-columns: 320px 1fr;
+      align-items: start;
+    }
+  }
+
+  .controls-col {
+    background-color: var(--bg-subtle);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .ctrl-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .ctrl-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.88rem;
+    font-weight: 600;
+  }
+
+  .ctrl-value {
+    font-family: var(--font-mono);
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  input[type="range"] {
+    width: 100%;
+    accent-color: var(--accent);
+    cursor: pointer;
+    height: 26px;
+  }
+
+  .scenario-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .btn-scenario {
+    padding: 9px 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: 1px solid var(--accent);
+    background-color: var(--bg-surface);
+    color: var(--accent);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    text-align: left;
+  }
+
+  .btn-scenario:hover, .btn-scenario[aria-pressed="true"] {
+    background-color: var(--accent);
+    color: #fff;
+  }
+
+  .svg-wrapper {
+    background-color: #FCFBF8;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 12px;
+  }
+
+  .svg-diagram {
+    width: 100%;
+    height: 255px;
+    display: block;
+  }
+
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  @media (min-width: 560px) {
+    .kpi-row {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .kpi-card {
+    background-color: var(--bg-subtle);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 10px;
+    text-align: center;
+  }
+
+  .kpi-card span {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--ink-secondary);
+  }
+
+  .kpi-card strong {
+    font-family: var(--font-mono);
+    font-size: 0.98rem;
+    color: var(--accent);
+  }
+
+  .model-limits {
+    margin-top: 16px;
+    padding: 12px 16px;
+    background-color: var(--bg-subtle);
+    border-left: 3px solid var(--ink-muted);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-size: 0.86rem;
+    color: var(--ink-secondary);
+  }
+
+  /* Mini-Quiz */
+  .quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    margin-bottom: 14px;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--ink-secondary);
+  }
+
+  .quiz-question {
+    font-family: var(--font-serif);
+    font-size: 1.12rem;
+    font-weight: 700;
+    margin: 0 0 14px;
+  }
+
+  .quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+
+  .quiz-option {
+    text-align: left;
+    padding: 12px 15px;
+    background-color: var(--bg-subtle);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    font-size: 0.94rem;
+    color: var(--ink-primary);
+    cursor: pointer;
+  }
+
+  .quiz-option:hover:not(:disabled) {
+    background-color: var(--accent-light);
+    border-color: var(--accent);
+  }
+
+  .quiz-option[data-status="correct"] {
+    background-color: var(--success-bg);
+    border-color: var(--success);
+    color: var(--success);
+    font-weight: 600;
+  }
+
+  .quiz-option[data-status="incorrect"] {
+    background-color: var(--error-bg);
+    border-color: var(--error);
+    color: var(--error);
+  }
+
+  .quiz-feedback {
+    margin-top: 14px;
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    font-size: 0.92rem;
+    display: none;
+  }
+
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.ok { background-color: var(--success-bg); border-left: 4px solid var(--success); }
+  .quiz-feedback.no { background-color: var(--error-bg); border-left: 4px solid var(--error); }
+
+  .quiz-footer {
+    margin-top: 16px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .btn-next {
+    background-color: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 9px 16px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  /* Finestra Modale di Approfondimento */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(28, 36, 43, 0.62);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    z-index: 100;
+  }
+
+  .modal-backdrop[aria-hidden="false"] {
+    display: flex;
+  }
+
+  .modal-dialog {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    max-width: 780px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: var(--shadow-lg);
+    padding: 26px;
+  }
+
+  .modal-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 14px;
+    padding-bottom: 14px;
+    margin-bottom: 18px;
+    border-bottom: 2px solid var(--border-color);
+  }
+
+  .modal-top h2 {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    margin: 4px 0 0;
+    color: var(--ink-primary);
+  }
+
+  .btn-close {
+    background-color: var(--bg-subtle);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    padding: 7px 12px;
+    font-size: 0.86rem;
+    font-weight: 700;
+    color: var(--ink-primary);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .btn-close:hover {
+    background-color: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  .modal-body h4 {
+    font-family: var(--font-serif);
+    font-size: 1.06rem;
+    color: var(--accent);
+    margin: 18px 0 8px;
+  }
+
+  .modal-body h4:first-child { margin-top: 0; }
+
+  .formula-block {
+    background-color: var(--accent-light);
+    border-left: 4px solid var(--accent);
+    padding: 12px 14px;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    margin: 10px 0;
+    font-size: 0.98rem;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-wrap: break-word;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  @media (max-width: 480px) {
+    .container {
+      padding: 0 14px;
+    }
+    .panel-box, .topic-card, .modal-dialog {
+      padding: 16px 14px;
+    }
+    .card-formula-preview, .formula-block {
+      font-size: 0.9rem;
+      padding: 8px 10px;
+    }
+  }
+
+  .sym-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    margin: 10px 0;
+  }
+
+  .sym-table th, .sym-table td {
+    text-align: left;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .sym-table th {
+    background-color: var(--bg-subtle);
+    font-weight: 700;
+  }
+
+  .worked-example {
+    background-color: var(--bg-subtle);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    margin-top: 10px;
+    font-size: 0.92rem;
+  }
+
+  .source-note {
+    margin-top: 16px;
+    padding: 10px 14px;
+    background-color: var(--accent-light);
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    color: var(--ink-primary);
+  }
+
+  /* Footer */
+  .site-footer {
+    background-color: var(--bg-surface);
+    border-top: 1px solid var(--border-color);
+    padding: 22px 0;
+    font-size: 0.85rem;
+    color: var(--ink-secondary);
+  }
+</style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Vai al contenuto principale</a>
+
+<header class="site-header">
+  <div class="container">
+    <div class="school-meta">
+      <span>ITI “Ettore Majorana” — Somma Vesuviana · Costruzioni Aeronautiche</span>
+      <span>Docente: Prof. Ing. Raucci Biagio · A.S. 2026/2027</span>
+    </div>
+    <h1>Fisica del Volo Librato: Peso, Curva Odògrafa e Zavorra d’Acqua</h1>
+    <p class="subtitle">Analisi aerodinamica e prestazionale della planata al variare del carico alare: dalla dimostrazione dell’omotetia sulla polare delle velocità alle scelte operative nel volo a vela da competizione.</p>
+    <div class="theme-question">
+      <span class="theme-question-label">Nucleo Tematico dell’Esposizione</span>
+      Dimostrazione della trasformazione omotetica dell’odògrafa nel passaggio dal peso <math><msub><mi>W</mi><mn>1</mn></msub></math> al peso <math><msub><mi>W</mi><mn>2</mn></msub><mo>&gt;</mo><msub><mi>W</mi><mn>1</mn></msub></math> a parità di assetto (<math><msub><mi>C</mi><mi>L</mi></msub></math> costante), deduzione delle grandezze invarianti e variabili in aria calma, e criterio di gestione della zavorra d’acqua in giornate di termiche forti o deboli.
+    </div>
+  </div>
+</header>
+
+<main id="main-content" class="container">
+
+  <!-- SEZIONE 1: I 5 NODI CONCETTUALI CON SINTESI VISIBILE E APPROFONDIMENTO MODALE -->
+  <section aria-labelledby="sec-nodes-title">
+    <div class="section-intro">
+      <h2 id="sec-nodes-title">1. Percorso Concettuale (5 Sezioni)</h2>
+      <p>Ogni scheda espone la sintesi principale; apri l’approfondimento per consultare definizioni rigorose, unità di misura SI, dimostrazioni ed esempi numerici svolti.</p>
+    </div>
+
+    <div class="cards-grid">
+      <!-- Sezione 1 -->
+      <article class="topic-card" tabindex="0" role="button" aria-haspopup="dialog" data-topic="equilibrio">
+        <div>
+          <div class="card-top">
+            <span class="card-num">Sezione 01</span>
+            <span class="card-ref">Sez. 2–3 · pp. 2–4 (PDF pp. 3–5)</span>
+          </div>
+          <h3>Componenti Cartesiane, Versori ed Equilibrio</h3>
+          <p class="card-summary">In terna assi vento (definita da versori ortogonali di modulo unitario), le forze si scompongono lungo e perpendicolarmente alla traiettoria (<math><mi>T</mi><mo>=</mo><mn>0</mn></math>). A parità di assetto (<math><msub><mi>C</mi><mi>L</mi></msub></math>), efficienza <math><mi>E</mi></math> e angolo <math><msub><mi>γ</mi><mi>d</mi></msub></math> non dipendono dal peso.</p>
+          <div class="card-formula-preview">
+            <math><msub><mi>F</mi><mi>x</mi></msub><mo>=</mo><mi>F</mi><mi>cos</mi><mi>θ</mi><mspace width="0.5em"/><mo>;</mo><mspace width="0.5em"/><msub><mi>F</mi><mi>y</mi></msub><mo>=</mo><mi>F</mi><mi>sin</mi><mi>θ</mi><mspace width="0.5em"/><mo>⟹</mo><mspace width="0.5em"/><msub><mi>γ</mi><mi>d</mi></msub><mo>≃</mo><mo>−</mo><mfrac><mn>1</mn><mi>E</mi></mfrac></math>
+          </div>
+        </div>
+        <button type="button" class="btn-open" data-topic="equilibrio">Approfondisci e vedi esempio →</button>
+      </article>
+
+      <!-- Sezione 2 -->
+      <article class="topic-card" tabindex="0" role="button" aria-haspopup="dialog" data-topic="omotetia">
+        <div>
+          <div class="card-top">
+            <span class="card-num">Sezione 02</span>
+            <span class="card-ref">Sez. 8–9 · pp. 8–10 (PDF pp. 9–12)</span>
+          </div>
+          <h3>Dimostrazione dell’Omotetia sull’Odògrafa</h3>
+          <p class="card-summary">Fissato l’assetto (<math><msub><mi>C</mi><mi>R</mi></msub></math> costante), la velocità lungo la traiettoria scala come <math><msqrt><mi>W</mi></msqrt></math>. Passando da <math><msub><mi>W</mi><mn>1</mn></msub></math> a <math><msub><mi>W</mi><mn>2</mn></msub><mo>&gt;</mo><msub><mi>W</mi><mn>1</mn></msub></math>, la polare delle velocità subisce un’omotetia di centro l’origine e rapporto <math><msqrt><msub><mi>W</mi><mn>2</mn></msub><mo>/</mo><msub><mi>W</mi><mn>1</mn></msub></msqrt></math>.</p>
+          <div class="card-formula-preview">
+            <math><mfrac><msub><mi>V</mi><mn>2</mn></msub><msub><mi>V</mi><mn>1</mn></msub></mfrac><mo>=</mo><mfrac><msub><mi>V</mi><mrow><mi>hor</mi><mo>,</mo><mn>2</mn></mrow></msub><msub><mi>V</mi><mrow><mi>hor</mi><mo>,</mo><mn>1</mn></mrow></msub></mfrac><mo>=</mo><mfrac><msub><mi>v</mi><mrow><mi>d</mi><mo>,</mo><mn>2</mn></mrow></msub><msub><mi>v</mi><mrow><mi>d</mi><mo>,</mo><mn>1</mn></mrow></msub></mfrac><mo>=</mo><msqrt><mfrac><msub><mi>W</mi><mn>2</mn></msub><msub><mi>W</mi><mn>1</mn></msub></mfrac></msqrt></math>
+          </div>
+        </div>
+        <button type="button" class="btn-open" data-topic="omotetia">Approfondisci e vedi esempio →</button>
+      </article>
+
+      <!-- Sezione 3 -->
+      <article class="topic-card" tabindex="0" role="button" aria-haspopup="dialog" data-topic="invarianti">
+        <div>
+          <div class="card-top">
+            <span class="card-num">Sezione 03</span>
+            <span class="card-ref">Sez. 3, 5, 6 · pp. 4–6 (PDF pp. 5–8)</span>
+          </div>
+          <h3>Grandezze Invarianti vs Grandezze Variabili</h3>
+          <p class="card-summary">In aria calma e a parità di assetto, due alianti identici di peso diverso percorrono la stessa distanza <math><mi>R</mi><mo>=</mo><mi>Δ</mi><mi>h</mi><mo>⋅</mo><mi>E</mi></math> con identico angolo <math><msub><mi>γ</mi><mi>d</mi></msub></math>, ma quello più pesante ha velocità e rateo di discesa maggiori e arriva prima.</p>
+          <div class="card-formula-preview">
+            <math><mi>R</mi><mo>=</mo><mi>Δ</mi><mi>h</mi><mo>⋅</mo><mi>E</mi><mspace width="0.8em"/><mo>(</mo><mtext>invariante</mtext><mo>)</mo><mspace width="1em"/><mo>;</mo><mspace width="1em"/><msub><mi>v</mi><mi>d</mi></msub><mo>∝</mo><msqrt><mi>W</mi></msqrt></math>
+          </div>
+        </div>
+        <button type="button" class="btn-open" data-topic="invarianti">Approfondisci e vedi esempio →</button>
+      </article>
+
+      <!-- Sezione 4 -->
+      <article class="topic-card" tabindex="0" role="button" aria-haspopup="dialog" data-topic="zavorra">
+        <div>
+          <div class="card-top">
+            <span class="card-num">Sezione 04</span>
+            <span class="card-ref">Sez. 4, 7.2, 9 · pp. 5, 8, 10</span>
+          </div>
+          <h3>Gestione della Zavorra d’Acqua in Gara</h3>
+          <p class="card-summary">Con termiche forti si imbarca acqua per aumentare la velocità di trasferimento in planata senza compromettere la salita; con termiche deboli si scarica zavorra per minimizzare il rateo di discesa <math><mo>|</mo><msub><mi>v</mi><mi>d</mi></msub><mo>|</mo></math> in spirale.</p>
+          <div class="card-formula-preview">
+            <math><mo>|</mo><msub><mi>v</mi><mi>d</mi></msub><msub><mo>|</mo><mi>min</mi></msub><mo>=</mo><msqrt><mfrac><mn>2</mn><mi>ρ</mi></mfrac><mfrac><mi>W</mi><mi>S</mi></mfrac></msqrt><mfrac><msub><mi>C</mi><mi>D</mi></msub><msubsup><mi>C</mi><mi>L</mi><mrow><mn>3</mn><mo>/</mo><mn>2</mn></mrow></msubsup></mfrac></math>
+          </div>
+        </div>
+        <button type="button" class="btn-open" data-topic="zavorra">Approfondisci e vedi esempio →</button>
+      </article>
+
+      <!-- Sezione 5 -->
+      <article class="topic-card" tabindex="0" role="button" aria-haspopup="dialog" data-topic="vento">
+        <div>
+          <div class="card-top">
+            <span class="card-num">Sezione 05</span>
+            <span class="card-ref">Sez. 11–13 · pp. 12–15 (PDF pp. 13–17)</span>
+          </div>
+          <h3>Effetto Combinato di Peso e Vento</h3>
+          <p class="card-summary">In presenza di vento l’autonomia dipende anche dal peso: poiché l’odògrafa del velivolo più pesante è più estesa (<math><mi>V</mi><mo>∝</mo><msqrt><mi>W</mi></msqrt></math>), la traslazione fissa dell’origine dovuta al vento (<math><msub><mi>V</mi><mi>w</mi></msub><mo>/</mo><mi>V</mi></math>) incide relativamente meno.</p>
+          <div class="card-formula-preview">
+            <math><msubsup><mi>γ</mi><mi>d</mi><mi>w</mi></msubsup><mo>≃</mo><mfrac><mrow><mo>−</mo><mi>V</mi><mo>/</mo><mi>E</mi><mo>+</mo><msub><mi>w</mi><mi>w</mi></msub></mrow><mrow><mi>V</mi><mo>+</mo><msub><mi>u</mi><mi>w</mi></msub></mrow></mfrac><mspace width="1em"/><mo>⟹</mo><mspace width="1em"/><msub><mi>W</mi><mn>2</mn></msub><mo>&gt;</mo><msub><mi>W</mi><mn>1</mn></msub><mtext> meno sensibile al vento</mtext></math>
+          </div>
+        </div>
+        <button type="button" class="btn-open" data-topic="vento">Approfondisci e vedi esempio →</button>
+      </article>
+    </div>
+  </section>
+
+  <!-- SEZIONE 2: SIMULAZIONE INTERATTIVA -->
+  <section aria-labelledby="sec-sim-title">
+    <div class="section-intro">
+      <h2 id="sec-sim-title">2. Simulazione Interattiva: Dilatazione Omotetica dell’Odògrafa</h2>
+      <p>Confronta in tempo reale la curva odògrafa a vuoto (<math><msub><mi>W</mi><mn>1</mn></msub></math>) e con zavorra d’acqua (<math><msub><mi>W</mi><mn>2</mn></msub></math>) al variare del carico e dell’assetto.</p>
+    </div>
+
+    <div class="panel-box">
+      <div class="sim-layout">
+        <div class="controls-col">
+          <div class="ctrl-group">
+            <div class="ctrl-header">
+              <label for="slider-w2">Peso zavorrato W<sub>2</sub> [N]</label>
+              <span class="ctrl-value" id="lbl-w2">4900 N</span>
+            </div>
+            <input type="range" id="slider-w2" min="3500" max="5600" step="50" value="4900">
+            <small style="color: var(--ink-muted);">Riferimento a vuoto: W<sub>1</sub> = 3500 N · S = 10,0 m²</small>
+          </div>
+
+          <div class="ctrl-group">
+            <div class="ctrl-header">
+              <label for="slider-cl">Coefficiente di portanza C<sub>L</sub></label>
+              <span class="ctrl-value" id="lbl-cl">0.91</span>
+            </div>
+            <input type="range" id="slider-cl" min="0.35" max="1.58" step="0.01" value="0.91">
+            <small style="color: var(--ink-muted);">C<sub>L</sub>* = 0,91 (E<sub>max</sub>) · C<sub>L</sub>** = 1,58 (minima potenza)</small>
+          </div>
+
+          <div class="ctrl-group">
+            <div class="ctrl-header">
+              <label for="slider-dh">Dislivello di planata Δh [m]</label>
+              <span class="ctrl-value" id="lbl-dh">1000 m</span>
+            </div>
+            <input type="range" id="slider-dh" min="500" max="3000" step="100" value="1000">
+          </div>
+
+          <div class="scenario-btns" role="group" aria-label="Scenari operativi di gara">
+            <button type="button" class="btn-scenario" id="preset-strong" aria-pressed="true">Scenario A: Termiche Forti (Zavorra massima, assetto E<sub>max</sub>)</button>
+            <button type="button" class="btn-scenario" id="preset-weak" aria-pressed="false">Scenario B: Termiche Deboli (Zavorra scaricata, minima potenza)</button>
+          </div>
+        </div>
+
+        <div>
+          <div class="svg-wrapper">
+            <svg id="svg-odografa" class="svg-diagram" viewBox="0 0 460 255" role="img" aria-label="Diagramma della curva odografa omotetica per pesi W1 e W2"></svg>
+          </div>
+
+          <div class="kpi-row" aria-live="polite">
+            <div class="kpi-card">
+              <span>Rapporto √(W₂/W₁)</span>
+              <strong id="kpi-factor">1,183</strong>
+            </div>
+            <div class="kpi-card">
+              <span>Velocità V₁ → V₂</span>
+              <strong id="kpi-vel">24,8 → 29,4 m/s</strong>
+            </div>
+            <div class="kpi-card">
+              <span>Rateo v<sub>d1</sub> → v<sub>d2</sub></span>
+              <strong id="kpi-rd">-0,65 → -0,77 m/s</strong>
+            </div>
+            <div class="kpi-card">
+              <span>Tempo t₁ → t₂ (R=<span id="kpi-range">38,0</span> km)</span>
+              <strong id="kpi-time">25,6 → 21,6 min</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="model-limits">
+        <strong>Ipotesi e limiti del modello (Sez. 2 &amp; 6, pp. 3–6):</strong>
+        (1) Moto rettilineo uniforme (<math><mi>T</mi><mo>=</mo><mn>0</mn></math>);
+        (2) Polare parabolica invariante col peso (<math><msub><mi>C</mi><mi>D</mi></msub><mo>=</mo><msub><mi>C</mi><mrow><mi>D</mi><mn>0</mn></mrow></msub><mo>+</mo><mi>k</mi><msubsup><mi>C</mi><mi>L</mi><mn>2</mn></msubsup></math>, con <math><msub><mi>C</mi><mrow><mi>D</mi><mn>0</mn></mrow></msub><mo>=</mo><mn>0,012</mn></math>, <math><mi>A</mi><mi>R</mi><mo>=</mo><mn>26</mn></math>, <math><mi>e</mi><mo>=</mo><mn>0,85</mn></math>);
+        (3) Approssimazione di piccolo angolo (<math><mi>cos</mi><msub><mi>γ</mi><mi>d</mi></msub><mo>≃</mo><mn>1</mn></math>) e densità costante al livello del mare (<math><msub><mi>ρ</mi><mn>0</mn></msub><mo>=</mo><mn>1,225</mn><msup><mtext> kg/m</mtext><mn>3</mn></msup></math>), trascurando effetti di comprimibilità, numero di Reynolds e manovre in virata.
+      </div>
+    </div>
+  </section>
+
+  <!-- SEZIONE 2B: LABORATORIO INTERATTIVO COMPONENTI CARTESIANE E SOMMA VETTORIALE -->
+  <section aria-labelledby="sec-vec-title">
+    <div class="section-intro">
+      <h2 id="sec-vec-title">3. Componenti Cartesiane e Somma di Vettori</h2>
+      <p>Verifica la scomposizione cartesiana (con caso limite <math><mi>F</mi><mo>=</mo><mn>100</mn><mtext> N</mtext></math>, <math><mi>θ</mi><mo>=</mo><mn>90</mn><mo>°</mo></math>) e la somma vettoriale di due forze o velocità modificando moduli e angoli.</p>
+    </div>
+
+    <div class="panel-box">
+      <div class="sim-layout">
+        <div class="controls-col">
+          <div class="ctrl-group">
+            <div class="ctrl-header">
+              <label for="slider-f1">Vettore <math><msub><mover><mi>F</mi><mo>→</mo></mover><mn>1</mn></msub></math> — Modulo F<sub>1</sub> [N]</label>
+              <span class="ctrl-value" id="lbl-f1">100 N</span>
+            </div>
+            <input type="range" id="slider-f1" min="0" max="200" step="5" value="100">
+          </div>
+
+          <div class="ctrl-group">
+            <div class="ctrl-header">
+              <label for="slider-th1">Vettore <math><msub><mover><mi>F</mi><mo>→</mo></mover><mn>1</mn></msub></math> — Angolo θ<sub>1</sub> [°]</label>
+              <span class="ctrl-value" id="lbl-th1">90°</span>
+            </div>
+            <input type="range" id="slider-th1" min="-180" max="180" step="5" value="90">
+          </div>
+
+          <div class="ctrl-group">
+            <div class="ctrl-header">
+              <label for="slider-f2">Vettore <math><msub><mover><mi>F</mi><mo>→</mo></mover><mn>2</mn></msub></math> — Modulo F<sub>2</sub> [N]</label>
+              <span class="ctrl-value" id="lbl-f2">0 N</span>
+            </div>
+            <input type="range" id="slider-f2" min="0" max="200" step="5" value="0">
+          </div>
+
+          <div class="ctrl-group">
+            <div class="ctrl-header">
+              <label for="slider-th2">Vettore <math><msub><mover><mi>F</mi><mo>→</mo></mover><mn>2</mn></msub></math> — Angolo θ<sub>2</sub> [°]</label>
+              <span class="ctrl-value" id="lbl-th2">0°</span>
+            </div>
+            <input type="range" id="slider-th2" min="-180" max="180" step="5" value="0">
+          </div>
+
+          <div class="scenario-btns" role="group" aria-label="Preset vettoriali">
+            <button type="button" class="btn-scenario" id="preset-vec-90" aria-pressed="true">Caso verifica: F₁ = 100 N, θ₁ = 90° (F₂ = 0 N)</button>
+            <button type="button" class="btn-scenario" id="preset-vec-sum" aria-pressed="false">Somma aerodinamica: L = 120 N (90°) + D = 30 N (180°)</button>
+          </div>
+        </div>
+
+        <div>
+          <div class="svg-wrapper">
+            <svg id="svg-vectors" class="svg-diagram" viewBox="0 0 460 255" role="img" aria-label="Diagramma cartesiano delle componenti e della somma vettoriale"></svg>
+          </div>
+
+          <div class="kpi-row" aria-live="polite">
+            <div class="kpi-card">
+              <span>Componente F<sub>1x</sub> / F<sub>1y</sub></span>
+              <strong id="kpi-f1comp">0 N / 100 N</strong>
+            </div>
+            <div class="kpi-card">
+              <span>Risultante R<sub>x</sub></span>
+              <strong id="kpi-rx">0,0 N</strong>
+            </div>
+            <div class="kpi-card">
+              <span>Risultante R<sub>y</sub></span>
+              <strong id="kpi-ry">100,0 N</strong>
+            </div>
+            <div class="kpi-card">
+              <span>Modulo R e Angolo θ<sub>R</sub></span>
+              <strong id="kpi-rmod">100,0 N · 90,0°</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEZIONE 4: MINI-QUIZ DI VERIFICA -->
+  <section aria-labelledby="sec-quiz-title">
+    <div class="section-intro">
+      <h2 id="sec-quiz-title">4. Verifica delle Competenze</h2>
+      <p>Quesiti di controllo sui passaggi dimostrativi e sulle applicazioni operative trattate.</p>
+    </div>
+
+    <div class="panel-box">
+      <div class="quiz-header">
+        <span id="quiz-step">Quesito 1 di 4</span>
+        <span id="quiz-score">Risposte corrette: 0 / 4</span>
+      </div>
+      <p class="quiz-question" id="quiz-q"></p>
+      <div class="quiz-options" id="quiz-options" role="group" aria-label="Opzioni di risposta"></div>
+      <div class="quiz-feedback" id="quiz-feedback" role="status" aria-live="polite"></div>
+      <div class="quiz-footer">
+        <button type="button" class="btn-next" id="quiz-next">Prossimo quesito →</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <strong>ITI “Ettore Majorana”, Somma Vesuviana — Costruzioni Aeronautiche — Prof. Ing. Raucci Biagio — A.S. 2026/2027</strong><br>
+    Fonte scientifica: B. Raucci, <em>Appunti di Meccanica del Volo — Il volo librato: Planata, autonomia ed influenza del vento</em> (Sez. 2–9 e 11–13, pp. 2–15 stampate / pp. 3–17 PDF).
+  </div>
+</footer>
+
+<!-- MODALE DI APPROFONDIMENTO ACCESSIBILE -->
+<div class="modal-backdrop" id="modal-backdrop" aria-hidden="true">
+  <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1">
+    <div class="modal-top">
+      <div>
+        <span class="card-num" id="modal-badge">Sezione</span>
+        <h2 id="modal-title">Titolo</h2>
+      </div>
+      <button type="button" class="btn-close" id="modal-close" aria-label="Chiudi finestra (Esc)">Chiudi [Esc]</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+(function() {
+  "use strict";
+
+  /* =========================================================
+     1. DATI DELLE 5 SEZIONI DI APPROFONDIMENTO (FONTE PDF)
+     ========================================================= */
+  const TOPICS = {
+    equilibrio: {
+      badge: "Sezione 01 · Sez. 2–3 e 11 (pp. 2–4, 12–14 stampate / PDF pp. 3–5, 13–15)",
+      title: "Componenti Cartesiane, Versori ed Equilibrio in Planata",
+      html: `
+        <h4>Definizioni Rigorose e Ipotesi</h4>
+        <p><strong>Definizione di versore:</strong> un <strong>versore</strong> (<math><mover><mi>i</mi><mo>^</mo></mover><mo>,</mo><mover><mi>j</mi><mo>^</mo></mover><mo>,</mo><mover><mi>k</mi><mo>^</mo></mover></math>) è un <strong>vettore adimensionale di modulo unitario</strong> (<math><mo>|</mo><mover><mi>i</mi><mo>^</mo></mover><mo>|</mo><mo>=</mo><mo>|</mo><mover><mi>j</mi><mo>^</mo></mover><mo>|</mo><mo>=</mo><mn>1</mn></math>) che individua esclusivamente direzione e verso di un asse orientato. Nella terna di assi vento (Sez. 2, p. 2) e nella rappresentazione vettoriale delle velocità (Sez. 11 e Fig. 8, pp. 12–14), qualsiasi vettore piano <math><mover><mi>F</mi><mo>→</mo></mover></math> di modulo <math><mi>F</mi></math> e angolo <math><mi>θ</mi></math> rispetto al semiasse positivo <math><mi>x</mi></math> si scrive come combinazione lineare dei versori degli assi:</p>
+        <div class="formula-block">
+          <math display="block">
+            <mover><mi>F</mi><mo>→</mo></mover><mo>=</mo><msub><mi>F</mi><mi>x</mi></msub><mover><mi>i</mi><mo>^</mo></mover><mo>+</mo><msub><mi>F</mi><mi>y</mi></msub><mover><mi>j</mi><mo>^</mo></mover>
+            <mspace width="1em"/><mtext>con</mtext><mspace width="1em"/>
+            <msub><mi>F</mi><mi>x</mi></msub><mo>=</mo><mi>F</mi><mi>cos</mi><mi>θ</mi>
+            <mspace width="0.8em"/><mo>,</mo><mspace width="0.8em"/>
+            <msub><mi>F</mi><mi>y</mi></msub><mo>=</mo><mi>F</mi><mi>sin</mi><mi>θ</mi>
+          </math>
+        </div>
+        <p>Il <strong>volo librato</strong> (o planata) è la condizione di volo rettilineo, uniforme e non propulso (<math><mi>T</mi><mo>=</mo><mn>0</mn></math>) in cui il velivolo discende lungo una traiettoria inclinata di un angolo <math><msub><mi>γ</mi><mi>d</mi></msub><mo>&lt;</mo><mn>0</mn></math> rispetto all’orizzontale (Eq. 3, p. 2). Con angoli piccoli (<math><mo>|</mo><msub><mi>γ</mi><mi>d</mi></msub><mo>|</mo><mo>&lt;</mo><mn>10</mn><mo>°</mo><mo>÷</mo><mn>15</mn><mo>°</mo></math>), <math><mi>cos</mi><msub><mi>γ</mi><mi>d</mi></msub><mo>≃</mo><mn>1</mn></math> e la polare parabolica del volo livellato resta valida entro il <math><mn>2</mn><mo>÷</mo><mn>3</mn><mo>%</mo></math> (p. 3).</p>
+
+        <h4>Equazioni Fondamentali della Planata</h4>
+        <div class="formula-block">
+          <math display="block">
+            <mi>L</mi><mo>=</mo><mi>W</mi><mi>cos</mi><msub><mi>γ</mi><mi>d</mi></msub>
+            <mspace width="1em"/><mo>;</mo><mspace width="1em"/>
+            <mi>D</mi><mo>=</mo><mo>−</mo><mi>W</mi><mi>sin</mi><msub><mi>γ</mi><mi>d</mi></msub>
+            <mspace width="1em"/><mo>⟹</mo><mspace width="1em"/>
+            <mfrac><mi>D</mi><mi>L</mi></mfrac><mo>=</mo><mo>−</mo><mi>tan</mi><msub><mi>γ</mi><mi>d</mi></msub><mo>≃</mo><mo>−</mo><msub><mi>γ</mi><mi>d</mi></msub><mo>=</mo><mfrac><mn>1</mn><mi>E</mi></mfrac>
+          </math>
+        </div>
+
+        <h4>Simboli e Unità di Misura (SI)</h4>
+        <table class="sym-table">
+          <thead><tr><th>Simbolo</th><th>Grandezza fisica</th><th>Unità SI</th></tr></thead>
+          <tbody>
+            <tr><td><math><mover><mi>i</mi><mo>^</mo></mover><mo>,</mo><mover><mi>j</mi><mo>^</mo></mover></math></td><td>Versori degli assi cartesiani ortogonali (<math><mo>|</mo><mover><mi>i</mi><mo>^</mo></mover><mo>|</mo><mo>=</mo><mo>|</mo><mover><mi>j</mi><mo>^</mo></mover><mo>|</mo><mo>=</mo><mn>1</mn></math>)</td><td>adimensionale</td></tr>
+            <tr><td><math><mi>F</mi><mo>,</mo><msub><mi>F</mi><mi>x</mi></msub><mo>,</mo><msub><mi>F</mi><mi>y</mi></msub></math></td><td>Modulo della forza e sue componenti cartesiane</td><td><math><mtext>N</mtext></math></td></tr>
+            <tr><td><math><mi>θ</mi><mo>,</mo><msub><mi>γ</mi><mi>d</mi></msub></math></td><td>Angolo orientato e angolo di planata (<math><mo>&lt;</mo><mn>0</mn></math> in discesa)</td><td><math><mtext>rad</mtext></math> (o <math><mo>°</mo></math>)</td></tr>
+            <tr><td><math><mi>W</mi><mo>,</mo><mi>L</mi><mo>,</mo><mi>D</mi></math></td><td>Peso, Portanza e Resistenza aerodinamica</td><td><math><mtext>N</mtext></math></td></tr>
+            <tr><td><math><mi>E</mi></math></td><td>Efficienza aerodinamica (<math><mi>L</mi><mo>/</mo><mi>D</mi></math>)</td><td>adimensionale</td></tr>
+          </tbody>
+        </table>
+
+        <div class="worked-example">
+          <strong>Esempio numerico svolto — Scomposizione cartesiana e somma di vettori:</strong><br>
+          <strong>Parte A (caso ortogonale):</strong> Sia data una forza <math><mover><mi>F</mi><mo>→</mo></mover></math> di modulo <math><mi>F</mi><mo>=</mo><mn>100</mn><mtext> N</mtext></math> inclinata di <math><mi>θ</mi><mo>=</mo><mn>90</mn><mo>°</mo></math> rispetto all’asse <math><mi>x</mi></math>.<br>
+          1. <em>Conversione in radianti:</em> <math><msub><mi>θ</mi><mi>rad</mi></msub><mo>=</mo><mn>90</mn><mo>°</mo><mo>⋅</mo><mfrac><mi>π</mi><mrow><mn>180</mn><mo>°</mo></mrow></mfrac><mo>=</mo><mfrac><mi>π</mi><mn>2</mn></mfrac><mtext> rad</mtext><mo>≃</mo><mn>1,5708</mn><mtext> rad</mtext></math>.<br>
+          2. <em>Componente orizzontale:</em> <math><msub><mi>F</mi><mi>x</mi></msub><mo>=</mo><mi>F</mi><mi>cos</mi><mo>(</mo><mi>π</mi><mo>/</mo><mn>2</mn><mo>)</mo><mo>=</mo><mn>100</mn><mtext> N</mtext><mo>×</mo><mn>0</mn><mo>=</mo><mn>0</mn><mtext> N</mtext></math>.<br>
+          3. <em>Componente verticale:</em> <math><msub><mi>F</mi><mi>y</mi></msub><mo>=</mo><mi>F</mi><mi>sin</mi><mo>(</mo><mi>π</mi><mo>/</mo><mn>2</mn><mo>)</mo><mo>=</mo><mn>100</mn><mtext> N</mtext><mo>×</mo><mn>1</mn><mo>=</mo><mn>100</mn><mtext> N</mtext></math>.<br>
+          4. <em>Scrittura vettoriale:</em> <math><mover><mi>F</mi><mo>→</mo></mover><mo>=</mo><mn>0</mn><mover><mi>i</mi><mo>^</mo></mover><mo>+</mo><mn>100</mn><mover><mi>j</mi><mo>^</mo></mover><mtext> N</mtext></math>.<br><br>
+          <strong>Parte B (somma vettoriale e planata):</strong> Sommando <math><msub><mover><mi>F</mi><mo>→</mo></mover><mn>1</mn></msub></math> (<math><msub><mi>F</mi><mn>1</mn></msub><mo>=</mo><mn>100</mn><mtext> N</mtext></math>, <math><msub><mi>θ</mi><mn>1</mn></msub><mo>=</mo><mn>90</mn><mo>°</mo></math>) a una resistenza orizzontale <math><msub><mover><mi>F</mi><mo>→</mo></mover><mn>2</mn></msub></math> (<math><msub><mi>F</mi><mn>2</mn></msub><mo>=</mo><mn>25</mn><mtext> N</mtext></math>, <math><msub><mi>θ</mi><mn>2</mn></msub><mo>=</mo><mn>180</mn><mo>°</mo></math>):<br>
+          • <math><msub><mi>R</mi><mi>x</mi></msub><mo>=</mo><msub><mi>F</mi><mrow><mn>1</mn><mi>x</mi></mrow></msub><mo>+</mo><msub><mi>F</mi><mrow><mn>2</mn><mi>x</mi></mrow></msub><mo>=</mo><mn>0</mn><mo>+</mo><mn>25</mn><mi>cos</mi><mo>(</mo><mi>π</mi><mo>)</mo><mo>=</mo><mo>−</mo><mn>25</mn><mtext> N</mtext></math>; <math><msub><mi>R</mi><mi>y</mi></msub><mo>=</mo><msub><mi>F</mi><mrow><mn>1</mn><mi>y</mi></mrow></msub><mo>+</mo><msub><mi>F</mi><mrow><mn>2</mn><mi>y</mi></mrow></msub><mo>=</mo><mn>100</mn><mo>+</mo><mn>25</mn><mi>sin</mi><mo>(</mo><mi>π</mi><mo>)</mo><mo>=</mo><mn>100</mn><mtext> N</mtext></math>.<br>
+          • <em>Modulo risultante:</em> <math><mi>R</mi><mo>=</mo><msqrt><msubsup><mi>R</mi><mi>x</mi><mn>2</mn></msubsup><mo>+</mo><msubsup><mi>R</mi><mi>y</mi><mn>2</mn></msubsup></msqrt><mo>=</mo><msqrt><msup><mrow><mo>(</mo><mo>−</mo><mn>25</mn><mo>)</mo></mrow><mn>2</mn></msup><mo>+</mo><msup><mn>100</mn><mn>2</mn></msup></msqrt><mo>≃</mo><mn>103,1</mn><mtext> N</mtext></math>, con efficienza <math><mi>E</mi><mo>=</mo><mn>100</mn><mo>/</mo><mn>25</mn><mo>=</mo><mn>4</mn></math>.
+        </div>
+        <div class="source-note"><strong>Riferimento alla fonte:</strong> B. Raucci, <em>Appunti di Meccanica del Volo — Il volo librato</em>: Sez. 2–3, Eq. (3)–(6), pp. 2–4 stampate (pp. 3–5 del PDF) per la scomposizione assi vento; Sez. 11 e Fig. 8, pp. 12–14 stampate (pp. 13–15 del PDF) per la notazione vettoriale cartesiana <math><msup><mrow><mo>[</mo><mi>u</mi><mspace width="0.3em"/><mi>v</mi><mspace width="0.3em"/><mi>w</mi><mo>]</mo></mrow><mi>T</mi></msup></math>.</div>
+      `
+    },
+
+    omotetia: {
+      badge: "Sezione 02 · Sez. 8–9 (pp. 8–10 stampate / PDF pp. 9–12)",
+      title: "Dimostrazione della Trasformazione Omotetica dell’Odògrafa",
+      html: `
+        <h4>Definizione di Curva Odògrafa</h4>
+        <p>La <strong>curva odògrafa</strong> (o polare delle velocità) è il luogo dei punti nel piano <math><mo>(</mo><msub><mi>V</mi><mi>hor</mi></msub><mo>,</mo><msub><mi>v</mi><mi>d</mi></msub><mo>)</mo></math> che rappresentano tutte le possibili condizioni di planata stabilizzata di un velivolo a una data quota. Il segmento dall’origine <math><mi>O</mi></math> al generico punto della curva ha lunghezza pari al modulo della velocità <math><mi>V</mi></math> e inclinazione pari all’angolo di planata <math><msub><mi>γ</mi><mi>d</mi></msub></math> (Sez. 8, p. 9).</p>
+
+        <h4>Passaggi Dimostrativi Rigorosi</h4>
+        <p>In volo librato la forza aerodinamica risultante <math><msub><mi>R</mi><mi>a</mi></msub><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mi>ρ</mi><msup><mi>V</mi><mn>2</mn></msup><mi>S</mi><msub><mi>C</mi><mi>R</mi></msub></math> (con <math><msub><mi>C</mi><mi>R</mi></msub><mo>=</mo><msqrt><msubsup><mi>C</mi><mi>L</mi><mn>2</mn></msubsup><mo>+</mo><msubsup><mi>C</mi><mi>D</mi><mn>2</mn></msubsup></msqrt></math>) equilibra vettorialmente l’intero peso <math><mi>W</mi></math>:</p>
+        <div class="formula-block">
+          <math display="block">
+            <mfrac><mn>1</mn><mn>2</mn></mfrac><mi>ρ</mi><msup><mi>V</mi><mn>2</mn></msup><mi>S</mi><msub><mi>C</mi><mi>R</mi></msub><mo>=</mo><mi>W</mi>
+            <mspace width="1em"/><mo>⟹</mo><mspace width="1em"/>
+            <mi>V</mi><mo>=</mo><msqrt><mfrac><mn>2</mn><mi>ρ</mi></mfrac><mfrac><mi>W</mi><mi>S</mi></mfrac><mfrac><mn>1</mn><msub><mi>C</mi><mi>R</mi></msub></mfrac></msqrt>
+          </math>
+        </div>
+        <p>A parità di assetto (<math><msub><mi>C</mi><mi>L</mi></msub></math> fissato, quindi <math><msub><mi>C</mi><mi>D</mi></msub></math>, <math><msub><mi>C</mi><mi>R</mi></msub></math> e <math><msub><mi>γ</mi><mi>d</mi></msub></math> costanti), di superficie <math><mi>S</mi></math> e di quota (<math><mi>ρ</mi></math> costante), il rapporto tra le velocità per due pesi <math><msub><mi>W</mi><mn>1</mn></msub></math> e <math><msub><mi>W</mi><mn>2</mn></msub></math> è (Eq. 18, p. 10):</p>
+        <div class="formula-block">
+          <math display="block">
+            <mfrac><msub><mi>V</mi><mn>2</mn></msub><msub><mi>V</mi><mn>1</mn></msub></mfrac><mo>=</mo><msqrt><mfrac><msub><mi>W</mi><mn>2</mn></msub><msub><mi>W</mi><mn>1</mn></msub></mfrac></msqrt>
+            <mspace width="1.2em"/><mo>⟹</mo><mspace width="1.2em"/>
+            <mo>{</mo><mtable><mtr><mtd><msub><mi>V</mi><mrow><mi>hor</mi><mo>,</mo><mn>2</mn></mrow></msub><mo>=</mo><msub><mi>V</mi><mn>2</mn></msub><mi>cos</mi><msub><mi>γ</mi><mi>d</mi></msub><mo>=</mo><msqrt><mfrac><msub><mi>W</mi><mn>2</mn></msub><msub><mi>W</mi><mn>1</mn></msub></mfrac></msqrt><mspace width="0.2em"/><msub><mi>V</mi><mrow><mi>hor</mi><mo>,</mo><mn>1</mn></mrow></msub></mtd></mtr><mtr><mtd><msub><mi>v</mi><mrow><mi>d</mi><mo>,</mo><mn>2</mn></mrow></msub><mo>=</mo><msub><mi>V</mi><mn>2</mn></msub><mi>sin</mi><msub><mi>γ</mi><mi>d</mi></msub><mo>=</mo><msqrt><mfrac><msub><mi>W</mi><mn>2</mn></msub><msub><mi>W</mi><mn>1</mn></msub></mfrac></msqrt><mspace width="0.2em"/><msub><mi>v</mi><mrow><mi>d</mi><mo>,</mo><mn>1</mn></mrow></msub></mtd></mtr></mtable>
+          </math>
+        </div>
+        <p><strong>Conclusione geometrica:</strong> ogni punto <math><mo>(</mo><msub><mi>V</mi><mrow><mi>hor</mi><mo>,</mo><mn>1</mn></mrow></msub><mo>,</mo><msub><mi>v</mi><mrow><mi>d</mi><mo>,</mo><mn>1</mn></mrow></msub><mo>)</mo></math> viene trasformato in un punto allineato con l’origine <math><mi>O</mi></math> e distante da essa del fattore scalare costante <math><mi>λ</mi><mo>=</mo><msqrt><msub><mi>W</mi><mn>2</mn></msub><mo>/</mo><msub><mi>W</mi><mn>1</mn></msub></msqrt></math>. Tale trasformazione piana è, per definizione, un’<strong>omotetia di centro l’origine</strong>.</p>
+        <p><em>Nota sulla formulazione del quesito:</em> nella traccia assegnata si cita il rapporto <math><msub><mi>W</mi><mn>2</mn></msub><mo>/</mo><msub><mi>W</mi><mn>1</mn></msub></math>, che corrisponde al rapporto tra i quadrati delle velocità (<math><msubsup><mi>V</mi><mn>2</mn><mn>2</mn></msubsup><mo>/</mo><msubsup><mi>V</mi><mn>1</mn><mn>2</mn></msubsup></math>) e tra le potenze dissipate (<math><msub><mi>Π</mi><mn>2</mn></msub><mo>/</mo><msub><mi>Π</mi><mn>1</mn></msub></math> a pari <math><mi>V</mi></math>); sul piano delle velocità (odògrafa) il fattore lineare di scala è <math><msqrt><msub><mi>W</mi><mn>2</mn></msub><mo>/</mo><msub><mi>W</mi><mn>1</mn></msub></msqrt></math> (Eq. 18 e Fig. 6, pp. 10–11).</p>
+
+        <div class="worked-example">
+          <strong>Esempio svolto:</strong><br>
+          Un aliante ha massa a vuoto <math><msub><mi>m</mi><mn>1</mn></msub><mo>=</mo><mn>350</mn><mtext> kg</mtext></math> (<math><msub><mi>W</mi><mn>1</mn></msub><mo>=</mo><mn>3433,5</mn><mtext> N</mtext></math>) e imbarca <math><mn>140</mn><mtext> kg</mtext></math> d’acqua (<math><msub><mi>m</mi><mn>2</mn></msub><mo>=</mo><mn>490</mn><mtext> kg</mtext></math>, <math><msub><mi>W</mi><mn>2</mn></msub><mo>=</mo><mn>4806,9</mn><mtext> N</mtext></math>).<br>
+          <strong>Rapporto di omotetia:</strong> <math><mi>λ</mi><mo>=</mo><msqrt><msub><mi>W</mi><mn>2</mn></msub><mo>/</mo><msub><mi>W</mi><mn>1</mn></msub></msqrt><mo>=</mo><msqrt><mn>490</mn><mo>/</mo><mn>350</mn></msqrt><mo>=</mo><msqrt><mn>1,40</mn></msqrt><mo>≃</mo><mn>1,183</mn></math>.<br>
+          Se a vuoto volava con <math><msub><mi>V</mi><mrow><mi>hor</mi><mo>,</mo><mn>1</mn></mrow></msub><mo>=</mo><mn>25,0</mn><mtext> m/s</mtext></math> e <math><msub><mi>v</mi><mrow><mi>d</mi><mo>,</mo><mn>1</mn></mrow></msub><mo>=</mo><mo>−</mo><mn>0,65</mn><mtext> m/s</mtext></math>, con zavorra avrà <math><msub><mi>V</mi><mrow><mi>hor</mi><mo>,</mo><mn>2</mn></mrow></msub><mo>=</mo><mn>29,58</mn><mtext> m/s</mtext></math> e <math><msub><mi>v</mi><mrow><mi>d</mi><mo>,</mo><mn>2</mn></mrow></msub><mo>=</mo><mo>−</mo><mn>0,769</mn><mtext> m/s</mtext></math>.
+        </div>
+        <div class="source-note"><strong>Riferimento:</strong> Sez. 8–9, Eq. (17)–(18) e Fig. 6, pp. 8–11 stampate (pp. 9–12 del PDF).</div>
+      `
+    },
+
+    invarianti: {
+      badge: "Sezione 03 · Sez. 3, 5, 6 (pp. 4–6 stampate / PDF pp. 5–8)",
+      title: "Deduzione delle Grandezze Invarianti e Variabili in Aria Calma",
+      html: `
+        <h4>Proprietà Geometrica dell’Omotetia e Conseguenze Fisiche</h4>
+        <p>Un’omotetia centrata nell’origine conserva l’inclinazione di tutte le semirette uscenti da <math><mi>O</mi></math> e dilata radialmente le lunghezze del fattore <math><msqrt><msub><mi>W</mi><mn>2</mn></msub><mo>/</mo><msub><mi>W</mi><mn>1</mn></msub></msqrt></math>. Da ciò discendono due gruppi netti di grandezze:</p>
+
+        <h4>1. Grandezze che Restano Invariate (aria calma, pari <math><msub><mi>C</mi><mi>L</mi></msub></math>)</h4>
+        <ul>
+          <li><strong>Efficienza aerodinamica (<math><mi>E</mi></math>):</strong> rapporto <math><msub><mi>C</mi><mi>L</mi></msub><mo>/</mo><msub><mi>C</mi><mi>D</mi></msub></math>, funzione esclusiva dell’assetto.</li>
+          <li><strong>Angolo di planata (<math><msub><mi>γ</mi><mi>d</mi></msub></math>):</strong> poiché <math><mi>tan</mi><msub><mi>γ</mi><mi>d</mi></msub><mo>=</mo><mo>−</mo><mn>1</mn><mo>/</mo><mi>E</mi></math>, la pendenza della traiettoria in aria calma non varia (<math><msub><mi>γ</mi><mrow><mi>d</mi><mo>,</mo><mn>2</mn></mrow></msub><mo>=</mo><msub><mi>γ</mi><mrow><mi>d</mi><mo>,</mo><mn>1</mn></mrow></msub></math>).</li>
+          <li><strong>Autonomia di distanza / Gittata (<math><mi>R</mi></math>):</strong> integrando <math><mi>d</mi><mi>h</mi><mo>/</mo><mi>d</mi><mi>R</mi><mo>=</mo><mo>−</mo><mn>1</mn><mo>/</mo><mi>E</mi></math> tra quota iniziale e finale si ottiene <math><mi>R</mi><mo>=</mo><mi>Δ</mi><mi>h</mi><mo>⋅</mo><mi>E</mi></math> (Eq. 13, p. 6). Due alianti identici di peso diverso, lasciati planare dalla stessa quota <math><mi>Δ</mi><mi>h</mi></math> allo stesso assetto, toccano terra nello stesso punto.</li>
+        </ul>
+
+        <h4>2. Grandezze che Cambiano (<math><msub><mi>W</mi><mn>2</mn></msub><mo>&gt;</mo><msub><mi>W</mi><mn>1</mn></msub></math>)</h4>
+        <div class="formula-block">
+          <math display="block">
+            <msub><mi>V</mi><mn>2</mn></msub><mo>=</mo><msub><mi>V</mi><mn>1</mn></msub><msqrt><mfrac><msub><mi>W</mi><mn>2</mn></msub><msub><mi>W</mi><mn>1</mn></msub></mfrac></msqrt>
+            <mspace width="1.1em"/><mo>;</mo><mspace width="1.1em"/>
+            <msub><mi>v</mi><mrow><mi>d</mi><mo>,</mo><mn>2</mn></mrow></msub><mo>=</mo><msub><mi>v</mi><mrow><mi>d</mi><mo>,</mo><mn>1</mn></mrow></msub><msqrt><mfrac><msub><mi>W</mi><mn>2</mn></msub><msub><mi>W</mi><mn>1</mn></msub></mfrac></msqrt>
+            <mspace width="1.1em"/><mo>;</mo><mspace width="1.1em"/>
+            <msub><mi>t</mi><mn>2</mn></msub><mo>=</mo><mfrac><mrow><mi>Δ</mi><mi>h</mi></mrow><mrow><mo>|</mo><msub><mi>v</mi><mrow><mi>d</mi><mo>,</mo><mn>2</mn></mrow></msub><mo>|</mo></mrow></mfrac><mo>=</mo><msub><mi>t</mi><mn>1</mn></msub><msqrt><mfrac><msub><mi>W</mi><mn>1</mn></msub><msub><mi>W</mi><mn>2</mn></msub></mfrac></msqrt>
+          </math>
+        </div>
+        <ul>
+          <li><strong>Velocità lungo la traiettoria (<math><mi>V</mi></math>):</strong> aumenta del fattore <math><msqrt><msub><mi>W</mi><mn>2</mn></msub><mo>/</mo><msub><mi>W</mi><mn>1</mn></msub></msqrt></math> per equilibrare il maggior peso.</li>
+          <li><strong>Rateo di discesa (<math><msub><mi>v</mi><mi>d</mi></msub></math>):</strong> aumenta in modulo dello stesso fattore (<math><mi>W</mi><mo>|</mo><msub><mi>v</mi><mi>d</mi></msub><mo>|</mo><mo>=</mo><mi>D</mi><mo>⋅</mo><mi>V</mi></math>, potenza dissipata per unità di peso, Sez. 5, p. 5).</li>
+          <li><strong>Tempo di planata (<math><mi>t</mi></math>):</strong> si riduce del fattore <math><msqrt><msub><mi>W</mi><mn>1</mn></msub><mo>/</mo><msub><mi>W</mi><mn>2</mn></msub></msqrt></math> (a densità costante): il velivolo più pesante percorre la stessa distanza <math><mi>R</mi></math> impiegando meno tempo.</li>
+        </ul>
+
+        <div class="worked-example">
+          <strong>Esempio svolto:</strong><br>
+          Dalla quota <math><mi>Δ</mi><mi>h</mi><mo>=</mo><mn>1500</mn><mtext> m</mtext></math> con <math><mi>E</mi><mo>=</mo><mn>40</mn></math> e rapporto di pesi <math><msub><mi>W</mi><mn>2</mn></msub><mo>/</mo><msub><mi>W</mi><mn>1</mn></msub><mo>=</mo><mn>1,40</mn></math> (<math><msqrt><mn>1,40</mn></msqrt><mo>≃</mo><mn>1,183</mn></math>):<br>
+          • <strong>Distanza al suolo:</strong> <math><msub><mi>R</mi><mn>1</mn></msub><mo>=</mo><msub><mi>R</mi><mn>2</mn></msub><mo>=</mo><mn>1500</mn><mo>×</mo><mn>40</mn><mo>=</mo><mn>60000</mn><mtext> m</mtext><mo>=</mo><mn>60</mn><mtext> km</mtext></math> (identica).<br>
+          • <strong>Tempo di discesa:</strong> con <math><mo>|</mo><msub><mi>v</mi><mrow><mi>d</mi><mo>,</mo><mn>1</mn></mrow></msub><mo>|</mo><mo>=</mo><mn>0,65</mn><mtext> m/s</mtext></math>, <math><msub><mi>t</mi><mn>1</mn></msub><mo>=</mo><mn>1500</mn><mo>/</mo><mn>0,65</mn><mo>=</mo><mn>2308</mn><mtext> s</mtext><mo>≃</mo><mn>38,5</mn><mtext> min</mtext></math>; con zavorra <math><mo>|</mo><msub><mi>v</mi><mrow><mi>d</mi><mo>,</mo><mn>2</mn></mrow></msub><mo>|</mo><mo>=</mo><mn>0,65</mn><mo>×</mo><mn>1,183</mn><mo>=</mo><mn>0,769</mn><mtext> m/s</mtext></math>, quindi <math><msub><mi>t</mi><mn>2</mn></msub><mo>=</mo><mn>1500</mn><mo>/</mo><mn>0,769</mn><mo>=</mo><mn>1951</mn><mtext> s</mtext><mo>≃</mo><mn>32,5</mn><mtext> min</mtext></math> (risparmio di <math><mn>6</mn><mtext> min</mtext></math>).
+        </div>
+        <div class="source-note"><strong>Riferimento:</strong> Sez. 3, 5, 6 e 9, Eq. (8), (11), (13), (18), pp. 4–6 e 10 stampate (pp. 5–8 e 11 del PDF).</div>
+      `
+    },
+
+    zavorra: {
+      badge: "Sezione 04 · Sez. 4, 7.2, 9 (pp. 5, 8, 10 stampate)",
+      title: "Strategia della Zavorra d’Acqua: Termiche Forti vs Deboli",
+      html: `
+        <h4>Principio Operativo del Volo a Vela da Competizione</h4>
+        <p>In una gara di velocità su circuito, l’aliante alterna due fasi: (a) <strong>salita in spirale</strong> dentro una corrente ascensionale (termica di velocità verticale <math><msub><mi>w</mi><mi>w</mi></msub><mo>&gt;</mo><mn>0</mn></math>) e (b) <strong>planata rettilinea</strong> di trasferimento verso la termica successiva. La velocità verticale netta di salita rispetto al suolo in termica è <math><msub><mi>w</mi><mi>netto</mi></msub><mo>=</mo><msub><mi>w</mi><mi>w</mi></msub><mo>−</mo><mo>|</mo><msub><mi>v</mi><mi>d</mi></msub><mo>|</mo></math>.</p>
+
+        <h4>1. Giornate di Termiche Forti → Imbarco di Zavorra d’Acqua</h4>
+        <ul>
+          <li><strong>Guadagno in planata:</strong> aumentando il peso (<math><msub><mi>W</mi><mn>2</mn></msub><mo>&gt;</mo><msub><mi>W</mi><mn>1</mn></msub></math>), la velocità di massima efficienza aumenta del fattore <math><msqrt><msub><mi>W</mi><mn>2</mn></msub><mo>/</mo><msub><mi>W</mi><mn>1</mn></msub></msqrt></math> a parità di distanza percorsa <math><mi>R</mi><mo>=</mo><mi>Δ</mi><mi>h</mi><mo>⋅</mo><msub><mi>E</mi><mi>max</mi></msub></math>, riducendo i tempi di crociera.</li>
+          <li><strong>Costo modesto in salita:</strong> l’incremento del rateo di discesa proprio (<math><mi>Δ</mi><mo>|</mo><msub><mi>v</mi><mi>d</mi></msub><mo>|</mo></math>, tipicamente <math><mo>+</mo><mn>0,10</mn><mo>÷</mo><mn>0,15</mn><mtext> m/s</mtext></math>) è trascurabile rispetto a termiche forti (<math><msub><mi>w</mi><mi>w</mi></msub><mo>=</mo><mn>3</mn><mo>÷</mo><mn>5</mn><mtext> m/s</mtext></math>), per cui il tempo perso in salita è molto inferiore al tempo guadagnato in planata.</li>
+        </ul>
+
+        <h4>2. Giornate di Termiche Deboli → Scarico della Zavorra in Volo</h4>
+        <ul>
+          <li><strong>Criticità del rateo di discesa:</strong> quando <math><msub><mi>w</mi><mi>w</mi></msub></math> è debole (<math><mo>≃</mo><mn>0,8</mn><mo>÷</mo><mn>1,2</mn><mtext> m/s</mtext></math>), un elevato <math><mo>|</mo><msub><mi>v</mi><mi>d</mi></msub><mo>|</mo></math> riduce drasticamente la salita netta <math><msub><mi>w</mi><mi>w</mi></msub><mo>−</mo><mo>|</mo><msub><mi>v</mi><mi>d</mi></msub><mo>|</mo></math>, fino a impedire il guadagno di quota.</li>
+          <li><strong>Vantaggio dello scarico:</strong> aprendo le valvole alari per espellere l’acqua (<math><msub><mi>W</mi><mn>2</mn></msub><mo>→</mo><msub><mi>W</mi><mn>1</mn></msub></math>), il rateo di discesa minimo (Eq. 16, p. 8) cala del fattore <math><msqrt><msub><mi>W</mi><mn>1</mn></msub><mo>/</mo><msub><mi>W</mi><mn>2</mn></msub></msqrt></math> e la minore velocità di stallo/spirale consente di virare con raggio più stretto nel nucleo stretto della termica.</li>
+        </ul>
+
+        <div class="worked-example">
+          <strong>Confronto numerico (con <math><msqrt><msub><mi>W</mi><mn>2</mn></msub><mo>/</mo><msub><mi>W</mi><mn>1</mn></msub></msqrt><mo>=</mo><mn>1,183</mn></math>, <math><mo>|</mo><msub><mi>v</mi><mrow><mi>d</mi><mo>,</mo><mn>1</mn></mrow></msub><mo>|</mo><mo>=</mo><mn>0,60</mn><mtext> m/s</mtext></math>, <math><mo>|</mo><msub><mi>v</mi><mrow><mi>d</mi><mo>,</mo><mn>2</mn></mrow></msub><mo>|</mo><mo>=</mo><mn>0,71</mn><mtext> m/s</mtext></math>):</strong><br>
+          • <strong>Termica forte (<math><msub><mi>w</mi><mi>w</mi></msub><mo>=</mo><mn>4,0</mn><mtext> m/s</mtext></math>):</strong> salita netta a vuoto <math><mn>3,40</mn><mtext> m/s</mtext></math> vs zavorrato <math><mn>3,29</mn><mtext> m/s</mtext></math> (perdita di salita solo del <math><mn>3,2</mn><mo>%</mo></math>, a fronte di un <math><mo>+</mo><mn>18,3</mn><mo>%</mo></math> di velocità in planata → <strong>conviene la zavorra</strong>).<br>
+          • <strong>Termica debole (<math><msub><mi>w</mi><mi>w</mi></msub><mo>=</mo><mn>0,85</mn><mtext> m/s</mtext></math>):</strong> salita netta a vuoto <math><mn>0,25</mn><mtext> m/s</mtext></math> vs zavorrato <math><mn>0,14</mn><mtext> m/s</mtext></math> (la velocità di salita si quasi dimezza, <math><mo>−</mo><mn>44</mn><mo>%</mo></math> → <strong>conviene scaricare zavorra</strong>).
+        </div>
+        <div class="source-note"><strong>Riferimento:</strong> Sez. 4, 7.2 e 9, Eq. (8), (16), (18), pp. 5, 8 e 10 stampate (pp. 6, 9 e 11 del PDF).</div>
+      `
+    },
+
+    vento: {
+      badge: "Sezione 05 · Sez. 11–13 (pp. 12–15 stampate / PDF pp. 13–17)",
+      title: "Effetto del Peso in Presenza di Vento (Ulteriore Vantaggio della Zavorra)",
+      html: `
+        <h4>Composizione delle Velocità e Traslazione dell’Origine</h4>
+        <p>In presenza di vento <math><msub><mover><mi>V</mi><mo>→</mo></mover><mi>w</mi></msub><mo>=</mo><mo>(</mo><msub><mi>u</mi><mi>w</mi></msub><mo>,</mo><msub><mi>w</mi><mi>w</mi></msub><mo>)</mo></math>, la velocità rispetto al suolo è <math><msub><mover><mi>V</mi><mo>→</mo></mover><mi>g</mi></msub><mo>=</mo><mover><mi>V</mi><mo>→</mo></mover><mo>+</mo><msub><mover><mi>V</mi><mo>→</mo></mover><mi>w</mi></msub></math> (Eq. 24, p. 12). Sulla curva odògrafa ciò equivale a traslare l’origine <math><mi>O</mi></math> del vettore <math><mo>−</mo><msub><mover><mi>V</mi><mo>→</mo></mover><mi>w</mi></msub></math> (Sez. 12, p. 13).</p>
+        <div class="formula-block">
+          <math display="block">
+            <msubsup><mi>γ</mi><mi>d</mi><mi>w</mi></msubsup><mo>≃</mo><mfrac><mrow><mo>−</mo><mi>V</mi><mo>/</mo><mi>E</mi><mo>+</mo><msub><mi>w</mi><mi>w</mi></msub></mrow><mrow><mi>V</mi><mo>+</mo><msub><mi>u</mi><mi>w</mi></msub></mrow></mfrac>
+            <mspace width="1.2em"/><mo>;</mo><mspace width="1.2em"/>
+            <msup><mi>R</mi><mi>w</mi></msup><mo>≃</mo><mo>−</mo><mfrac><mrow><mi>Δ</mi><mi>h</mi></mrow><msubsup><mi>γ</mi><mi>d</mi><mi>w</mi></msubsup></mfrac>
+          </math>
+        </div>
+
+        <h4>Perché il Velivolo Più Pesante è Meno Sensibile al Vento (Sez. 13, p. 15)</h4>
+        <p>Poiché l’aliante zavorrato (<math><msub><mi>W</mi><mn>2</mn></msub><mo>&gt;</mo><msub><mi>W</mi><mn>1</mn></msub></math>) vola a velocità maggiore (<math><msub><mi>V</mi><mn>2</mn></msub><mo>&gt;</mo><msub><mi>V</mi><mn>1</mn></msub></math>), il rapporto adimensionale <math><mo>|</mo><msub><mi>u</mi><mi>w</mi></msub><mo>|</mo><mo>/</mo><mi>V</mi></math> è più piccolo: la stessa traslazione assoluta dell’origine incide relativamente meno su una curva odògrafa più dilatata (Fig. 10, p. 16):</p>
+        <ul>
+          <li><strong>Con vento contrario (<math><msub><mi>u</mi><mi>w</mi></msub><mo>&lt;</mo><mn>0</mn></math>):</strong> <math><msubsup><mi>R</mi><mn>1</mn><mi>w</mi></msubsup><mo>&lt;</mo><msubsup><mi>R</mi><mn>2</mn><mi>w</mi></msubsup><mo>&lt;</mo><mi>R</mi></math> — il velivolo più pesante conserva maggiore autonomia di distanza.</li>
+          <li><strong>Con vento a favore (<math><msub><mi>u</mi><mi>w</mi></msub><mo>&gt;</mo><mn>0</mn></math>):</strong> <math><msubsup><mi>R</mi><mn>1</mn><mi>w</mi></msubsup><mo>&gt;</mo><msubsup><mi>R</mi><mn>2</mn><mi>w</mi></msubsup><mo>&gt;</mo><mi>R</mi></math> — il velivolo più leggero sfrutta più a lungo la spinta del vento.</li>
+        </ul>
+
+        <div class="worked-example">
+          <strong>Esempio svolto (vento contrario <math><msub><mi>u</mi><mi>w</mi></msub><mo>=</mo><mo>−</mo><mn>8</mn><mtext> m/s</mtext></math>, <math><msub><mi>w</mi><mi>w</mi></msub><mo>=</mo><mn>0</mn></math>, <math><mi>E</mi><mo>=</mo><mn>40</mn></math>, <math><mi>Δ</mi><mi>h</mi><mo>=</mo><mn>1000</mn><mtext> m</mtext></math>):</strong><br>
+          • <strong>Aliante a vuoto (<math><msub><mi>V</mi><mn>1</mn></msub><mo>=</mo><mn>25,0</mn><mtext> m/s</mtext></math>):</strong> <math><msubsup><mi>γ</mi><mrow><mi>d</mi><mo>,</mo><mn>1</mn></mrow><mi>w</mi></msubsup><mo>≃</mo><mfrac><mrow><mo>−</mo><mn>25</mn><mo>/</mo><mn>40</mn></mrow><mrow><mn>25</mn><mo>−</mo><mn>8</mn></mrow></mfrac><mo>=</mo><mo>−</mo><mfrac><mn>0,625</mn><mn>17</mn></mfrac><mo>≃</mo><mo>−</mo><mn>0,03676</mn><mtext> rad</mtext><mo>⟹</mo><msubsup><mi>R</mi><mn>1</mn><mi>w</mi></msubsup><mo>≃</mo><mn>27,2</mn><mtext> km</mtext></math>.<br>
+          • <strong>Aliante zavorrato (<math><msub><mi>V</mi><mn>2</mn></msub><mo>=</mo><mn>29,6</mn><mtext> m/s</mtext></math>):</strong> <math><msubsup><mi>γ</mi><mrow><mi>d</mi><mo>,</mo><mn>2</mn></mrow><mi>w</mi></msubsup><mo>≃</mo><mfrac><mrow><mo>−</mo><mn>29,6</mn><mo>/</mo><mn>40</mn></mrow><mrow><mn>29,6</mn><mo>−</mo><mn>8</mn></mrow></mfrac><mo>=</mo><mo>−</mo><mfrac><mn>0,740</mn><mn>21,6</mn></mfrac><mo>≃</mo><mo>−</mo><mn>0,03426</mn><mtext> rad</mtext><mo>⟹</mo><msubsup><mi>R</mi><mn>2</mn><mi>w</mi></msubsup><mo>≃</mo><mn>29,2</mn><mtext> km</mtext></math> (<math><mo>+</mo><mn>2,0</mn><mtext> km</mtext></math> di autonomia recuperata controvento).
+        </div>
+        <div class="source-note"><strong>Riferimento:</strong> Sez. 11–13, Eq. (24)–(27) e Fig. 10, pp. 12–16 stampate (pp. 13–17 del PDF).</div>
+      `
+    }
+  };
+
+  /* =========================================================
+     2. GESTIONE ACCESSIBILE DELLA FINESTRA MODALE (ESC + FOCUS)
+     ========================================================= */
+  const backdrop = document.getElementById("modal-backdrop");
+  const dialog = backdrop.querySelector(".modal-dialog");
+  const modalBadge = document.getElementById("modal-badge");
+  const modalTitle = document.getElementById("modal-title");
+  const modalBody = document.getElementById("modal-body");
+  const btnClose = document.getElementById("modal-close");
+  let lastTrigger = null;
+
+  function openTopicModal(key, triggerEl) {
+    const data = TOPICS[key];
+    if (!data) return;
+    lastTrigger = triggerEl || document.activeElement;
+    modalBadge.textContent = data.badge;
+    modalTitle.textContent = data.title;
+    modalBody.innerHTML = data.html;
+    backdrop.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+    btnClose.focus();
+  }
+
+  function closeTopicModal() {
+    if (backdrop.getAttribute("aria-hidden") === "true") return;
+    backdrop.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+    if (lastTrigger && typeof lastTrigger.focus === "function") {
+      lastTrigger.focus();
+    }
+  }
+
+  document.querySelectorAll(".topic-card").forEach(card => {
+    const key = card.getAttribute("data-topic");
+    card.addEventListener("click", (e) => {
+      openTopicModal(key, e.target.closest("button") || card);
+    });
+    card.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openTopicModal(key, card);
+      }
+    });
+  });
+
+  btnClose.addEventListener("click", closeTopicModal);
+  backdrop.addEventListener("click", (e) => {
+    if (e.target === backdrop) closeTopicModal();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (backdrop.getAttribute("aria-hidden") === "false") {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        closeTopicModal();
+      } else if (e.key === "Tab") {
+        const focusables = dialog.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        if (focusables.length > 0) {
+          const first = focusables[0];
+          const last = focusables[focusables.length - 1];
+          if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      }
+    }
+  });
+
+  /* =========================================================
+     3. SIMULAZIONE IN TEMPO REALE DELL'ODÒGRAFA OMOTETICA
+     ========================================================= */
+  const RHO_0 = 1.225;
+  const S_WING = 10.0;
+  const W_1 = 3500;
+  const CD_0 = 0.012;
+  const AR = 26;
+  const OSWALD = 0.85;
+  const K_IND = 1 / (Math.PI * AR * OSWALD);
+  const CL_STAR = Math.sqrt(CD_0 / K_IND); // ~0.913
+
+  const sliderW2 = document.getElementById("slider-w2");
+  const sliderCL = document.getElementById("slider-cl");
+  const sliderDH = document.getElementById("slider-dh");
+  const lblW2 = document.getElementById("lbl-w2");
+  const lblCL = document.getElementById("lbl-cl");
+  const lblDH = document.getElementById("lbl-dh");
+  const svgOdo = document.getElementById("svg-odografa");
+
+  const kpiFactor = document.getElementById("kpi-factor");
+  const kpiVel = document.getElementById("kpi-vel");
+  const kpiRd = document.getElementById("kpi-rd");
+  const kpiRange = document.getElementById("kpi-range");
+  const kpiTime = document.getElementById("kpi-time");
+
+  const presetStrong = document.getElementById("preset-strong");
+  const presetWeak = document.getElementById("preset-weak");
+
+  function computeGlide(W, cl) {
+    const cd = CD_0 + K_IND * cl * cl;
+    const cr = Math.sqrt(cl * cl + cd * cd);
+    const V = Math.sqrt((2 / RHO_0) * (W / S_WING) / cr);
+    const gamma = -Math.atan(cd / cl);
+    return {
+      E: cl / cd,
+      V,
+      Vhor: V * Math.cos(gamma),
+      vd: V * Math.sin(gamma)
+    };
+  }
+
+  function updateSimulation() {
+    const W2 = parseFloat(sliderW2.value);
+    const cl = parseFloat(sliderCL.value);
+    const dh = parseFloat(sliderDH.value);
+    const ratio = Math.sqrt(W2 / W_1);
+
+    lblW2.textContent = `${W2.toFixed(0)} N`;
+    lblCL.textContent = `${cl.toFixed(2)}${Math.abs(cl - CL_STAR) < 0.03 ? " (Emax)" : ""}`;
+    lblDH.textContent = `${dh.toFixed(0)} m`;
+
+    const s1 = computeGlide(W_1, cl);
+    const s2 = computeGlide(W2, cl);
+    const rangeKm = (dh * s1.E) / 1000;
+    const t1Min = (dh / Math.abs(s1.vd)) / 60;
+    const t2Min = (dh / Math.abs(s2.vd)) / 60;
+
+    kpiFactor.textContent = ratio.toFixed(3).replace(".", ",");
+    kpiVel.textContent = `${s1.V.toFixed(1).replace(".", ",")} → ${s2.V.toFixed(1).replace(".", ",")} m/s`;
+    kpiRd.textContent = `${s1.vd.toFixed(2).replace(".", ",")} → ${s2.vd.toFixed(2).replace(".", ",")} m/s`;
+    kpiRange.textContent = rangeKm.toFixed(1).replace(".", ",");
+    kpiTime.textContent = `${t1Min.toFixed(1).replace(".", ",")} → ${t2Min.toFixed(1).replace(".", ",")} min`;
+
+    // Disegno SVG inline (curva odògrafa omotetica)
+    const ox = 42, oy = 30;
+    const scaleX = 6.6;
+    const scaleY = 92.0;
+    const toX = v => ox + v * scaleX;
+    const toY = vz => oy + (-vz) * scaleY;
+
+    let d1 = "", d2 = "";
+    for (let c = 0.35; c <= 1.62; c += 0.03) {
+      const p1 = computeGlide(W_1, c);
+      const p2 = computeGlide(W2, c);
+      d1 += (c === 0.35 ? "M" : "L") + `${toX(p1.Vhor).toFixed(1)},${toY(p1.vd).toFixed(1)} `;
+      d2 += (c === 0.35 ? "M" : "L") + `${toX(p2.Vhor).toFixed(1)},${toY(p2.vd).toFixed(1)} `;
+    }
+
+    const x1 = toX(s1.Vhor), y1 = toY(s1.vd);
+    const x2 = toX(s2.Vhor), y2 = toY(s2.vd);
+
+    // Tangente di minima pendenza dall'origine
+    const pOpt = computeGlide(W2, CL_STAR);
+    const tx = toX(pOpt.Vhor * 1.12);
+    const ty = toY(pOpt.vd * 1.12);
+
+    svgOdo.innerHTML = `
+      <line x1="${ox}" y1="${oy}" x2="445" y2="${oy}" stroke="#5C6B78" stroke-width="1.3"/>
+      <line x1="${ox}" y1="12" x2="${ox}" y2="240" stroke="#5C6B78" stroke-width="1.3"/>
+      <text x="445" y="${oy - 7}" text-anchor="end" font-size="11" font-weight="bold" fill="#3E4A56">Vhor [m/s]</text>
+      <text x="${ox - 6}" y="236" text-anchor="end" font-size="11" font-weight="bold" fill="#3E4A56">vd [m/s]</text>
+      <text x="${ox - 8}" y="${oy - 5}" text-anchor="end" font-size="11" font-weight="bold" fill="#1C242B">O</text>
+
+      <!-- Tangente dall'origine (angolo γd min invariato) -->
+      <line x1="${ox}" y1="${oy}" x2="${tx}" y2="${ty}" stroke="#1E6341" stroke-width="1.3" stroke-dasharray="4,3"/>
+      <text x="${tx - 4}" y="${ty - 6}" text-anchor="end" font-size="10" font-weight="bold" fill="#1E6341">Tangente γd min (invariata)</text>
+
+      <!-- Raggio omotetico O - V1 - V2 -->
+      <line x1="${ox}" y1="${oy}" x2="${x2}" y2="${y2}" stroke="#1C242B" stroke-width="1.4"/>
+
+      <!-- Curve Odògrafe -->
+      <path d="${d1}" fill="none" stroke="#1B4965" stroke-width="2.5"/>
+      <path d="${d2}" fill="none" stroke="#1B4965" stroke-width="2.3" stroke-dasharray="6,3"/>
+
+      <!-- Etichette curve -->
+      <text x="${toX(computeGlide(W_1, 0.42).Vhor) - 8}" y="${toY(computeGlide(W_1, 0.42).vd) + 14}" font-size="11" font-weight="bold" fill="#1B4965">W₁ (3500 N)</text>
+      <text x="${toX(computeGlide(W2, 0.42).Vhor) + 6}" y="${toY(computeGlide(W2, 0.42).vd)}" font-size="11" font-weight="bold" fill="#1B4965">W₂ (${W2} N)</text>
+
+      <!-- Punti operativi V1 e V2 -->
+      <circle cx="${x1}" cy="${y1}" r="5.2" fill="#FFFFFF" stroke="#1B4965" stroke-width="2.4"/>
+      <text x="${x1 - 7}" y="${y1 - 8}" text-anchor="end" font-size="10.5" font-weight="bold" fill="#1C242B">V₁</text>
+
+      <circle cx="${x2}" cy="${y2}" r="5.5" fill="#1B4965" stroke="#FFFFFF" stroke-width="1.6"/>
+      <text x="${x2 + 8}" y="${y2 + 4}" font-size="10.5" font-weight="bold" fill="#1B4965">V₂</text>
+    `;
+  }
+
+  sliderW2.addEventListener("input", () => {
+    presetStrong.setAttribute("aria-pressed", "false");
+    presetWeak.setAttribute("aria-pressed", "false");
+    updateSimulation();
+  });
+  sliderCL.addEventListener("input", updateSimulation);
+  sliderDH.addEventListener("input", updateSimulation);
+
+  presetStrong.addEventListener("click", () => {
+    sliderW2.value = "4900";
+    sliderCL.value = CL_STAR.toFixed(2);
+    presetStrong.setAttribute("aria-pressed", "true");
+    presetWeak.setAttribute("aria-pressed", "false");
+    updateSimulation();
+  });
+
+  presetWeak.addEventListener("click", () => {
+    sliderW2.value = "3500";
+    sliderCL.value = "1.58";
+    presetStrong.setAttribute("aria-pressed", "false");
+    presetWeak.setAttribute("aria-pressed", "true");
+    updateSimulation();
+  });
+
+  /* =========================================================
+     3B. LABORATORIO COMPONENTI CARTESIANE E SOMMA VETTORIALE
+     ========================================================= */
+  const sliderF1 = document.getElementById("slider-f1");
+  const sliderTh1 = document.getElementById("slider-th1");
+  const sliderF2 = document.getElementById("slider-f2");
+  const sliderTh2 = document.getElementById("slider-th2");
+  const lblF1 = document.getElementById("lbl-f1");
+  const lblTh1 = document.getElementById("lbl-th1");
+  const lblF2 = document.getElementById("lbl-f2");
+  const lblTh2 = document.getElementById("lbl-th2");
+  const svgVectors = document.getElementById("svg-vectors");
+
+  const kpiF1Comp = document.getElementById("kpi-f1comp");
+  const kpiRx = document.getElementById("kpi-rx");
+  const kpiRy = document.getElementById("kpi-ry");
+  const kpiRmod = document.getElementById("kpi-rmod");
+  const presetVec90 = document.getElementById("preset-vec-90");
+  const presetVecSum = document.getElementById("preset-vec-sum");
+
+  // Converte gradi in radianti e azzera errori floating-point ai multipli di 90°
+  function degToComponents(mag, deg) {
+    const rad = (deg * Math.PI) / 180;
+    const rawX = mag * Math.cos(rad);
+    const rawY = mag * Math.sin(rad);
+    const x = Math.abs(rawX) < 1e-10 ? 0 : Math.round(rawX * 100) / 100;
+    const y = Math.abs(rawY) < 1e-10 ? 0 : Math.round(rawY * 100) / 100;
+    return { x, y };
+  }
+
+  function updateVectorLab() {
+    const f1 = parseFloat(sliderF1.value);
+    const th1 = parseFloat(sliderTh1.value);
+    const f2 = parseFloat(sliderF2.value);
+    const th2 = parseFloat(sliderTh2.value);
+
+    lblF1.textContent = `${f1.toFixed(0)} N`;
+    lblTh1.textContent = `${th1.toFixed(0)}°`;
+    lblF2.textContent = `${f2.toFixed(0)} N`;
+    lblTh2.textContent = `${th2.toFixed(0)}°`;
+
+    const c1 = degToComponents(f1, th1);
+    const c2 = degToComponents(f2, th2);
+
+    const rx = Math.abs(c1.x + c2.x) < 1e-10 ? 0 : Math.round((c1.x + c2.x) * 100) / 100;
+    const ry = Math.abs(c1.y + c2.y) < 1e-10 ? 0 : Math.round((c1.y + c2.y) * 100) / 100;
+    const rMag = Math.hypot(rx, ry);
+    const rDeg = rMag < 1e-9 ? 0 : (Math.atan2(ry, rx) * 180) / Math.PI;
+
+    const fmt = (val) => (Object.is(val, -0) ? "0" : val.toFixed(1).replace(/\.0$/, "").replace(".", ","));
+    kpiF1Comp.textContent = `${fmt(c1.x)} N / ${fmt(c1.y)} N`;
+    kpiRx.textContent = `${rx.toFixed(1).replace(".", ",")} N`;
+    kpiRy.textContent = `${ry.toFixed(1).replace(".", ",")} N`;
+    kpiRmod.textContent = `${rMag.toFixed(1).replace(".", ",")} N · ${rDeg.toFixed(1).replace(".", ",")}°`;
+
+    // Disegno SVG inline su piano cartesiano centrato in (230, 132)
+    const cx = 230, cy = 132;
+    const maxVal = Math.max(120, f1, f2, rMag);
+    const sc = 98 / maxVal;
+
+    const x1 = cx + c1.x * sc, y1 = cy - c1.y * sc;
+    const x2 = cx + c2.x * sc, y2 = cy - c2.y * sc;
+    const xr = cx + rx * sc,   yr = cy - ry * sc;
+
+    svgVectors.innerHTML = `
+      <defs>
+        <marker id="arr-b" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L7,3 z" fill="#1B4965"/>
+        </marker>
+        <marker id="arr-g" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L7,3 z" fill="#1E6341"/>
+        </marker>
+        <marker id="arr-r" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L7,3 z" fill="#9B2226"/>
+        </marker>
+      </defs>
+      <line x1="20" y1="${cy}" x2="440" y2="${cy}" stroke="#B4A896" stroke-width="1.2"/>
+      <line x1="${cx}" y1="15" x2="${cx}" y2="242" stroke="#B4A896" stroke-width="1.2"/>
+      <text x="436" y="${cy - 6}" text-anchor="end" font-size="11" font-weight="bold" fill="#3E4A56">+x (î)</text>
+      <text x="${cx + 8}" y="24" font-size="11" font-weight="bold" fill="#3E4A56">+y (ĵ)</text>
+
+      <!-- Proiezioni cartesiane di F1 -->
+      <line x1="${x1}" y1="${cy}" x2="${x1}" y2="${y1}" stroke="#1B4965" stroke-width="1" stroke-dasharray="3,3"/>
+      <line x1="${cx}" y1="${y1}" x2="${x1}" y2="${y1}" stroke="#1B4965" stroke-width="1" stroke-dasharray="3,3"/>
+
+      <!-- Parallelogramma somma se F2 > 0 -->
+      ${f2 > 0 ? `<line x1="${x1}" y1="${y1}" x2="${xr}" y2="${yr}" stroke="#5C6B78" stroke-width="1" stroke-dasharray="4,3"/>
+                  <line x1="${x2}" y1="${y2}" x2="${xr}" y2="${yr}" stroke="#5C6B78" stroke-width="1" stroke-dasharray="4,3"/>` : ""}
+
+      <!-- Vettore F1 -->
+      ${f1 > 0 ? `<line x1="${cx}" y1="${cy}" x2="${x1}" y2="${y1}" stroke="#1B4965" stroke-width="2.6" marker-end="url(#arr-b)"/>
+                  <text x="${x1 + 7}" y="${y1 - 6}" font-size="11" font-weight="bold" fill="#1B4965">F₁</text>` : ""}
+
+      <!-- Vettore F2 -->
+      ${f2 > 0 ? `<line x1="${cx}" y1="${cy}" x2="${x2}" y2="${y2}" stroke="#1E6341" stroke-width="2.4" marker-end="url(#arr-g)"/>
+                  <text x="${x2 + 7}" y="${y2 + 12}" font-size="11" font-weight="bold" fill="#1E6341">F₂</text>` : ""}
+
+      <!-- Risultante R -->
+      ${(f2 > 0 && rMag > 0) ? `<line x1="${cx}" y1="${cy}" x2="${xr}" y2="${yr}" stroke="#9B2226" stroke-width="2.8" marker-end="url(#arr-r)"/>
+                                <text x="${xr + 8}" y="${yr - 6}" font-size="11" font-weight="bold" fill="#9B2226">R</text>` : ""}
+    `;
+  }
+
+  [sliderF1, sliderTh1, sliderF2, sliderTh2].forEach(el => {
+    el.addEventListener("input", () => {
+      presetVec90.setAttribute("aria-pressed", "false");
+      presetVecSum.setAttribute("aria-pressed", "false");
+      updateVectorLab();
+    });
+  });
+
+  presetVec90.addEventListener("click", () => {
+    sliderF1.value = "100";
+    sliderTh1.value = "90";
+    sliderF2.value = "0";
+    sliderTh2.value = "0";
+    presetVec90.setAttribute("aria-pressed", "true");
+    presetVecSum.setAttribute("aria-pressed", "false");
+    updateVectorLab();
+  });
+
+  presetVecSum.addEventListener("click", () => {
+    sliderF1.value = "120";
+    sliderTh1.value = "90";
+    sliderF2.value = "30";
+    sliderTh2.value = "180";
+    presetVec90.setAttribute("aria-pressed", "false");
+    presetVecSum.setAttribute("aria-pressed", "true");
+    updateVectorLab();
+  });
+
+  /* =========================================================
+     4. MINI-QUIZ DI VERIFICA (4 QUESITI)
+     ========================================================= */
+  const QUIZ_DATA = [
+    {
+      q: "1. Passando dal peso W₁ al peso W₂ > W₁ a parità di assetto (stesso CL) e di quota, di quale fattore si dilatano radialmente i punti della curva odògrafa?",
+      options: [
+        "Del fattore lineare W₂ / W₁.",
+        "Del fattore √(W₂ / W₁), poiché la velocità è proporzionale alla radice del carico alare.",
+        "Del fattore (W₂ / W₁)²."
+      ],
+      correct: 1,
+      explanation: "Corretto (Eq. 18, p. 10): dall’equilibrio Ra = ½ρV²SCR = W si ricava V ∝ √(W/S), quindi V₂/V₁ = √(W₂/W₁). Il rapporto W₂/W₁ riguarda invece i quadrati delle velocità V₂²/V₁²."
+    },
+    {
+      q: "2. Quale tra le seguenti grandezze RESTA INVARIATA in aria calma quando un aliante imbarca zavorra d’acqua e vola allo stesso assetto?",
+      options: [
+        "Il rateo di discesa vd.",
+        "Il tempo impiegato a percorrere la planata.",
+        "L’angolo di planata γd e l’autonomia di distanza R = Δh · E."
+      ],
+      correct: 2,
+      explanation: "Corretto (Sez. 3, 6 e 9): l’omotetia centrata nell’origine conserva gli angoli delle semirette (γd = −1/E) e quindi la distanza percorsa al suolo in aria calma R = Δh · E."
+    },
+    {
+      q: "3. Perché in una giornata caratterizzata da termiche forti i piloti da gara riempiono i serbatoi alari di zavorra d’acqua?",
+      options: [
+        "Per aumentare l’efficienza massima Emax dell’ala.",
+        "Per aumentare la velocità di trasferimento in planata del fattore √(W₂/W₁), mentre l’aumento di |vd| in salita è ampiamente compensato dalle forti ascendenze.",
+        "Per ridurre la velocità di planata e restare più tempo in aria."
+      ],
+      correct: 1,
+      explanation: "Corretto (Sez. 4 e 9): con la zavorra l’aliante percorre la stessa distanza R in meno tempo. L’aumento del rateo di discesa proprio |vd| incide poco quando la corrente ascensionale ww è molto intensa."
+    },
+    {
+      q: "4. Oltre al vantaggio in termiche forti, quale altro beneficio offre un peso maggiore W₂ > W₁ in presenza di vento contrario?",
+      options: [
+        "Riduce la sensibilità al vento (rapporto Vw/V minore), conservando una maggiore autonomia di distanza controvento rispetto all’aliante leggero.",
+        "Annulla completamente l’effetto del vento contrario.",
+        "Sposta l’assetto ottimo verso velocità inferiori rispetto all’aria calma."
+      ],
+      correct: 0,
+      explanation: "Corretto (Sez. 13, p. 15): poiché la curva odògrafa del velivolo più pesante è più estesa, la traslazione fissa dell’origine dovuta al vento incide relativamente meno (R₁w < R₂w < R con vento contrario)."
+    }
+  ];
+
+  let currentQ = 0;
+  const userAnswers = new Array(QUIZ_DATA.length).fill(null);
+
+  const elStep = document.getElementById("quiz-step");
+  const elScore = document.getElementById("quiz-score");
+  const elQ = document.getElementById("quiz-q");
+  const elOptions = document.getElementById("quiz-options");
+  const elFeedback = document.getElementById("quiz-feedback");
+  const elNext = document.getElementById("quiz-next");
+
+  function renderQuiz() {
+    const item = QUIZ_DATA[currentQ];
+    const correctCount = userAnswers.reduce((acc, val, idx) => acc + (val === QUIZ_DATA[idx].correct ? 1 : 0), 0);
+
+    elStep.textContent = `Quesito ${currentQ + 1} di ${QUIZ_DATA.length}`;
+    elScore.textContent = `Risposte corrette: ${correctCount} / ${QUIZ_DATA.length}`;
+    elQ.textContent = item.q;
+    elOptions.innerHTML = "";
+
+    const answered = userAnswers[currentQ] !== null;
+
+    item.options.forEach((optText, i) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "quiz-option";
+      btn.textContent = optText;
+      btn.disabled = answered;
+
+      if (answered) {
+        if (i === item.correct) btn.dataset.status = "correct";
+        else if (i === userAnswers[currentQ]) btn.dataset.status = "incorrect";
+      }
+
+      btn.addEventListener("click", () => {
+        userAnswers[currentQ] = i;
+        renderQuiz();
+      });
+      elOptions.appendChild(btn);
+    });
+
+    if (answered) {
+      const isOk = userAnswers[currentQ] === item.correct;
+      elFeedback.className = `quiz-feedback show ${isOk ? "ok" : "no"}`;
+      elFeedback.textContent = item.explanation;
+    } else {
+      elFeedback.className = "quiz-feedback";
+      elFeedback.textContent = "";
+    }
+
+    elNext.textContent = currentQ < QUIZ_DATA.length - 1 ? "Prossimo quesito →" : "Ricomincia verifica ↻";
+  }
+
+  elNext.addEventListener("click", () => {
+    if (currentQ < QUIZ_DATA.length - 1) {
+      currentQ++;
+    } else {
+      currentQ = 0;
+      userAnswers.fill(null);
+    }
+    renderQuiz();
+  });
+
+  // Avvio iniziale
+  updateSimulation();
+  updateVectorLab();
+  renderQuiz();
+})();
+</script>
+</body>
+</html>
